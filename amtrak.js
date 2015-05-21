@@ -20,7 +20,17 @@ Amtrak = (function(){
   }
 
   var Train = function(data){
+    this.position = {
+      lat: data.geometry.coordinates[0],
+      lng: data.geometry.coordinates[1]
+    };
+    this.id        = data.properties.ID;
+    this.trainNum  = data.properties.TrainNum;
     this.routeName = data.properties.RouteName;
+    this.velocity  = data.properties.Velocity;
+    this.heading   = data.properties.Heading;
+    this.originCode= data.properties.OrigCode;
+    this.destinationCode = data.properties.DestCode;
   };
 
   var amtrak = {
