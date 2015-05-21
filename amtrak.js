@@ -19,11 +19,25 @@ Amtrak = (function(){
     request.send();
   }
 
+  var Train = function(data){
+    this.routeName = data.properties.RouteName;
+  };
+
   var amtrak = {
     google_key: null,
     getTrains: function(callback){
+      var processResult = function(data){
+        var trains = [];
+        for (var i=0; i<data.features.length; i++){
+          var trainData = data.features[i];
+          var train = new Train(trainData);
+          trains.push(train);
+        }
+        callback(trains);
+      };
+
       var url = TRAINS_URL + getKey();
-      get(url, callback);
+      get(url, processResult);
     }
   };
 
